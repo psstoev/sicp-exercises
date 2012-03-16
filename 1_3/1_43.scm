@@ -35,3 +35,17 @@
 
 (define (compose f g)
   (lambda (x) (f (g x))))
+
+;; And here is a third, somewhat strange, solution:
+(define (repeated f n)
+  (accumulate compose id (lambda (x) f) 1 inc n))
+
+(define (accumulate combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      (combiner (term a)
+                (accumulate combiner null-value term (next a) next b))))
+
+(define (id x) x)
+
+(define (inc x) (+ x 1))
