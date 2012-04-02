@@ -1,4 +1,4 @@
-;; Tests for exercise 2.33:
+;; Tests for exercise 2.34:
 
 ;; Load the test manager:
 (load "../../lib/test-manager/load.scm")

@@ -5,7 +5,6 @@
 ;; Load the exercise:
 (load "../1_29.scm")
 
-
 (define (err-cube-integral result)
   (abs (- .25 result)))
 ;; Define tests:

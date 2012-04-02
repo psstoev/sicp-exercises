@@ -1,4 +1,4 @@
-;; Tests for exercise 2.33:
+;; Tests for exercise 2.37:
 
 ;; Load the test manager:
 (load "../../lib/test-manager/load.scm")
@@ -7,6 +7,7 @@
 
 (define m '((1 2) (3 4)))
 (define v '(5 6))
+
 ;; Define tests:
 (in-test-group 
  ex-2.37

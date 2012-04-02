@@ -5,10 +5,10 @@
 ;; Load the exercise:
 (load "../2_42.scm")
 
-
 (define solution-4x4
   '(((2 . 1) (4 . 2) (1 . 3) (3 . 4))
     ((3 . 1) (1 . 2) (4 . 3) (2 . 4))))
+
 ;; Define tests:
 (in-test-group 
  ex-2.42
