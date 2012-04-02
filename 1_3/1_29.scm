@@ -11,39 +11,28 @@
 ;; results to those of the integral procedure shown above.
 
 ;; Answer:
-(define (sum term a next b)
-  (if (> a b)
-      0
-      (+ (term a)
-         (sum term (next a) next b))))
+(define (integral-simpson f a b n)
+  (define h (/ (- b a) (* n 1.0)))
+  (define (term k)
+    (define (coeff)
+      (cond ((or (= k 0) (= k n)) 1)
+            ((even? k) 2)
+            (else 4)))
+    (* (coeff) (f (+ a (* k h))))) 
+  (* (/ h 3)
+     (sum term 0 (lambda (x) (+ 1 x)) n)))
 
-(define (cube x) (* x x x))
+;; Helpers:
+(define (sum term a next b)
+  (define (iter n result)
+    (if (> n b)
+        result
+        (iter (next n)
+              (+ (term n) result))))
+  (iter a 0))
 
 (define (integral f a b dx)
   (define (add-dx x) (+ x dx))
   (* (sum f (+ a (/ dx 2.0)) add-dx b) dx))
 
-(define (integral2 f a b n)
-  (define h (/ (- b a) n))
-  (define (1+ x) (+ x 1))
-  (define (term k)
-    (define g (f (+ a (* k h))))
-    (cond ((= k 0) (f a))
-          ((even? k) (* 2 g))
-          (else (* 4 (f (+ a (* k h)))))))
-  (* (/ h 3.0)
-     (sum term 0 1+ n)))
-
-(display "(integral cube 0 1 0.01) error:")
-(display (abs (- .25 (integral cube 0 1 .01))))
-
-(display "(integral2 cube 0 1 100) error:")
-(display (abs (- .25 (integral2 cube 0 1 100))))
-
-(display "(integral cube 0 1 0.001) error:")
-(display (abs (- .25 (integral cube 0 1 .001))))
-
-(display "(integral2 cube 0 1 1000) error:")
-(display (abs (- .25 (integral2 cube 0 1 1000))))
-
-;; The strange thing is, that Simpson's rule looks less accurate.
+(define (cube x) (* x x x))
